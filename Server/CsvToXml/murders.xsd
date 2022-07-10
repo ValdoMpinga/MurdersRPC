@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root" type="rootType"/>
+  <xs:complexType name="agencyDataType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="agencyCode"/>
+      <xs:element type="xs:string" name="agencyName"/>
+      <xs:element name="agencyType">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Municipal Police"/>
+            <xs:enumeration value="County Police"/>
+            <xs:enumeration value="State Police"/>
+            <xs:enumeration value="Sheriff"/>
+            <xs:enumeration value="Special Police"/>
+            <xs:enumeration value="Regional Police"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="crimeOccurenceType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="city"/>
+      <xs:element type="xs:string" name="state"/>
+      <xs:element type="xs:string" name="year"/>
+      <xs:element type="xs:string" name="month"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="crimeDetailsType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="incident"/>
+      <xs:element name="crimeType">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Murder or Manslaughter"/>
+            <xs:enumeration value="Manslaughter by Negligence"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="crimeSolved">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Yes"/>
+            <xs:enumeration value="No"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VictimDataType">
+    <xs:sequence>
+      <xs:element name="victimSex">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Male"/>
+            <xs:enumeration value="Female"/>
+            <xs:enumeration value="Unknown"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="victimAge"/>
+      <xs:element name="victimRace">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Native American/Alaska Native"/>
+            <xs:enumeration value="White"/>
+            <xs:enumeration value="Black"/>
+            <xs:enumeration value="Unknown"/>
+            <xs:enumeration value="Asian/Pacific Islander"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="victimEthnicity">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Unknown"/>
+            <xs:enumeration value="Not Hispanic"/>
+            <xs:enumeration value="Hispanic"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="perpetratorDataType">
+    <xs:sequence>
+      <xs:element name="perpetratorSex">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Male"/>
+            <xs:enumeration value="Unknown"/>
+            <xs:enumeration value="Female"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="perpetratorAge"/>
+      <xs:element name="perpetratorRace">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Native American/Alaska Native"/>
+            <xs:enumeration value="White"/>
+            <xs:enumeration value="Unknown"/>
+            <xs:enumeration value="Black"/>
+            <xs:enumeration value="Asian/Pacific Islander"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="perpetratorEthnicity">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Unknown"/>
+            <xs:enumeration value="Not Hispanic"/>
+            <xs:enumeration value="Hispanic"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="relationship"/>
+      <xs:element type="xs:string" name="weapon"/>
+      <xs:element name="victimCount">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="0"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="6"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="9"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="perpetratorCount"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="recordIdType">
+    <xs:sequence>
+      <xs:element type="agencyDataType" name="agencyData"/>
+      <xs:element type="crimeOccurenceType" name="crimeOccurence"/>
+      <xs:element type="crimeDetailsType" name="crimeDetails"/>
+      <xs:element type="VictimDataType" name="VictimData"/>
+      <xs:element type="perpetratorDataType" name="perpetratorData"/>
+      <xs:element type="xs:string" name="recordSource"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="crimeType">
+    <xs:sequence>
+      <xs:element type="recordIdType" name="recordId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="rootType">
+    <xs:sequence>
+      <xs:element type="crimeType" name="crime" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
